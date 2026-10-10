@@ -1,0 +1,218 @@
+/* ==========================================
+   自定义样式：搜索框美化 + 中性色调适配
+   通过 inject 引入，主题升级不受影响
+   ========================================== */
+
+/* ========== 搜索弹窗 ========== */
+#local-search .search-dialog {
+  border: 1px solid rgba(0, 0, 0, .06);
+  border-radius: 16px;
+  background: var(--card-bg);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, .14);
+}
+
+/* 弹窗标题 */
+#local-search .search-dialog .search-nav {
+  color: #343a40;
+}
+
+/* 输入框 */
+#local-search .local-search-box input {
+  padding: 10px 16px;
+  border: 1.5px solid #dee2e6;
+  border-radius: 10px;
+  background: var(--global-bg);
+  font-size: 15px;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+#local-search .local-search-box input:focus {
+  border-color: #495057;
+  box-shadow: 0 0 0 3px rgba(73, 80, 87, .1);
+}
+
+#local-search .local-search-box input::placeholder {
+  color: #adb5bd;
+}
+
+/* 关闭按钮 */
+#local-search .search-dialog .search-close-button {
+  color: #adb5bd;
+}
+
+#local-search .search-dialog .search-close-button:hover {
+  color: #495057;
+}
+
+/* 分割线 */
+#local-search .search-dialog hr {
+  opacity: .45;
+}
+
+/* 结果列表 */
+#local-search .local-search-hit-item::marker {
+  color: #adb5bd;
+}
+
+#local-search .local-search-hit-item a {
+  transition: color .2s ease;
+}
+
+#local-search .local-search-hit-item a:hover {
+  color: #495057;
+}
+
+/* 搜索关键词高亮（低饱和暖色点缀） */
+.search-keyword {
+  color: #d9480f;
+}
+
+/* ========== 右侧按钮组取消齿轮收缩（展开状态常驻，整组显隐仍随滚动） ========== */
+/* 收缩组始终展开 */
+#rightside #rightside-config-hide {
+  height: auto !important;
+  opacity: 1 !important;
+  transform: translate(0, 0) !important;
+}
+
+/* 隐藏展开/收起的齿轮按钮 */
+#rightside #rightside-config-show #rightside-config {
+  display: none;
+}
+
+/* 分类/标签/归档/友链页面：右下角按钮始终显示（不随顶部收起） */
+body.type-tags #rightside,
+body.type-categories #rightside,
+body.type-link #rightside,
+body.type-archive #rightside {
+  opacity: 1 !important;
+  transform: translate(-58px, 0) !important;
+}
+
+/* ========== 右侧悬浮按钮（回到顶部 / 深浅色切换等） ========== */
+#rightside > div > button,
+#rightside > div > a {
+  border: 1px solid rgba(0, 0, 0, .07);
+  background-color: rgba(255, 255, 255, .92);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .07);
+  color: #666e76;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background-color .3s ease, color .3s ease, box-shadow .3s ease;
+}
+
+#rightside > div > button:hover,
+#rightside > div > a:hover {
+  background-color: #ececec;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .1);
+  color: #343a40;
+}
+
+/* ========== 页脚 ========== */
+#footer {
+  border-top: 1px solid #e9ecef;
+  background-color: #f1f3f5;
+}
+
+#footer > * {
+  color: #868e96;
+}
+
+#footer a {
+  color: #868e96;
+}
+
+#footer a:hover {
+  color: #495057;
+}
+
+/* ========== 背景图蒙纱效果 ========== */
+/* 浅色模式：蒙纱透亮（数值越小越淡，0~1） */
+#web_bg {
+  opacity: .3;
+  /* 取消主题自带的淡入动画，背景立即显示 */
+  animation: none;
+  -webkit-animation: none;
+}
+
+/* 深色模式：图更明显 + 减弱主题自带的黑色遮罩（原 .7 太重） */
+[data-theme='dark'] #web_bg {
+  opacity: .5;
+}
+
+[data-theme='dark'] #web_bg:before {
+  background-color: rgba(0, 0, 0, .35);
+}
+
+/* ========== 归档页内容顶部大标题（与主题 .page-title 同款样式） ========== */
+#archive .page-heading {
+  margin: 0 0 10px;
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--text-highlight-color);
+}
+
+/* ========== 深色模式适配 ========== */
+[data-theme='dark'] #local-search .search-dialog {
+  border-color: rgba(255, 255, 255, .08);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, .55);
+}
+
+[data-theme='dark'] #local-search .search-dialog .search-nav {
+  color: rgba(255, 255, 255, .85);
+}
+
+[data-theme='dark'] #local-search .local-search-box input {
+  border-color: #2c2c2c;
+  background: #1a1a1a;
+}
+
+[data-theme='dark'] #local-search .local-search-box input:focus {
+  border-color: #495057;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .06);
+}
+
+[data-theme='dark'] #local-search .local-search-box input::placeholder {
+  color: #666;
+}
+
+[data-theme='dark'] #local-search .search-dialog .search-close-button {
+  color: #666;
+}
+
+[data-theme='dark'] #local-search .search-dialog .search-close-button:hover,
+[data-theme='dark'] #local-search .local-search-hit-item a:hover {
+  color: rgba(255, 255, 255, .85);
+}
+
+[data-theme='dark'] .search-keyword {
+  color: #ffa94d;
+}
+
+[data-theme='dark'] #rightside > div > button,
+[data-theme='dark'] #rightside > div > a {
+  border-color: rgba(255, 255, 255, .08);
+  background-color: #1f1f1f;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+  color: rgba(255, 255, 255, .65);
+}
+
+[data-theme='dark'] #rightside > div > button:hover,
+[data-theme='dark'] #rightside > div > a:hover {
+  background-color: #2c2c2c;
+  color: rgba(255, 255, 255, .9);
+}
+
+[data-theme='dark'] #footer {
+  border-top-color: #262626;
+  background-color: #161616;
+}
+
+[data-theme='dark'] #footer > *,
+[data-theme='dark'] #footer a {
+  color: rgba(255, 255, 255, .45);
+}
+
+[data-theme='dark'] #footer a:hover {
+  color: rgba(255, 255, 255, .85);
+}
