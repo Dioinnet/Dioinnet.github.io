@@ -89,6 +89,12 @@ body.type-archive #rightside {
   transform: translate(-58px, 0) !important;
 }
 
+/* ========== 导航栏 局部翻译按钮（中/EN） ========== */
+/* 复用主题 .site-page 样式（字体/阴影/悬停下划线与相邻菜单项一致），只补左侧间距 */
+#nav #menus #lang-toggle {
+  padding-left: 14px;
+}
+
 /* ========== 右侧悬浮按钮（回到顶部 / 深浅色切换等） ========== */
 #rightside > div > button,
 #rightside > div > a {
