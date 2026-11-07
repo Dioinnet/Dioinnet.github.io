@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>计算机网络实验2：常用网络命令 | DIOINNET'S WORLD</title><meta name="author" content="Dioinnet"><meta name="copyright" content="Dioinnet"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="实验要求实验目的  了解 ping、traceroute 等常用网络工具的功能以及使用方法，并通过这些工具发现或者验证网络中的故障； 掌握各网络命令的工作原理。  实验内容  练习使用 10 个常用的网络命令：Ping、Ipconfig、Netstat、Tracert、ARP、Route、Nslookup、Netsh、FTP、Net； 学习各网络命令的工作原理。  实验环境：Windows 操作系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络实验2：常用网络命令">
+<meta property="og:url" content="https://dioinnet.github.io/2026/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2-%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="DIOINNET&#39;S WORLD">
+<meta property="og:description" content="实验要求实验目的  了解 ping、traceroute 等常用网络工具的功能以及使用方法，并通过这些工具发现或者验证网络中的故障； 掌握各网络命令的工作原理。  实验内容  练习使用 10 个常用的网络命令：Ping、Ipconfig、Netstat、Tracert、ARP、Route、Nslookup、Netsh、FTP、Net； 学习各网络命令的工作原理。  实验环境：Windows 操作系">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dioinnet.github.io/img/liang2.png">
+<meta property="article:published_time" content="2026-03-31T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-07T09:20:27.289Z">
+<meta property="article:author" content="Dioinnet">
+<meta property="article:tag" content="计算机网络实验">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dioinnet.github.io/img/liang2.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "计算机网络实验2：常用网络命令",
+  "url": "https://dioinnet.github.io/2026/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2-%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/",
+  "image": "https://dioinnet.github.io/img/liang2.png",
+  "datePublished": "2026-03-31T04:00:00.000Z",
+  "dateModified": "2026-11-07T09:20:27.289Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Dioinnet",
+      "url": "https://dioinnet.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://dioinnet.github.io/2026/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2-%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/lib/infinitegrid/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机网络实验2：常用网络命令',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body class="post"><div id="web_bg" style="background-image: url(/img/yuki-bg.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/liang2.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">DIOINNET'S WORLD</span></a><a class="nav-page-title" href="/"><span class="site-name">计算机网络实验2：常用网络命令</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><span class="site-page" id="lang-toggle" title="中/EN 切换" tabindex="0" role="button">EN</span><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">计算机网络实验2：常用网络命令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-31T04:00:00.000Z" title="发表于 2026-03-31 12:00:00">2026-03-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-11-07T09:20:27.289Z" title="更新于 2026-11-07 17:20:27">2026-11-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="实验要求"><a href="#实验要求" class="headerlink" title="实验要求"></a>实验要求</h2><p><strong>实验目的</strong></p>
+<ol>
+<li>了解 ping、traceroute 等常用网络工具的功能以及使用方法，并通过这些工具发现或者验证网络中的故障；</li>
+<li>掌握各网络命令的工作原理。</li>
+</ol>
+<p><strong>实验内容</strong></p>
+<ol>
+<li>练习使用 10 个常用的网络命令：Ping、Ipconfig、Netstat、Tracert、ARP、Route、Nslookup、Netsh、FTP、Net；</li>
+<li>学习各网络命令的工作原理。</li>
+</ol>
+<p><strong>实验环境</strong>：Windows 操作系统；具备 Internet 连接。</p>
+<h2 id="实验过程与结果"><a href="#实验过程与结果" class="headerlink" title="实验过程与结果"></a>实验过程与结果</h2><h3 id="Ping"><a href="#Ping" class="headerlink" title="Ping"></a>Ping</h3><p><img src="/img/cn-labs/lab2/img01.png" alt="实验截图"></p>
+<p>这一步是ping测试本机TCP&#x2F;IP协议是否正常，在图中响应均未丢失，且TTL都是源地址的初始值（128），协议正常</p>
+<p><img src="/img/cn-labs/lab2/img02.png" alt="实验截图"></p>
+<p>这一步就是ping本机ip地址，发现均无异常，本地配置无问题</p>
+<p><img src="/img/cn-labs/lab2/img03.png" alt="实验截图"></p>
+<p>这一步ping的网关ip，无丢失，可以表示网关路由器正在运行且能够做出应答</p>
+<p><img src="/img/cn-labs/lab2/img04.png" alt="实验截图"></p>
+<p>这一步是我对学校内部网域名执行的ping命令，发现正常，表示DNS服务器的IP地址配置没问题</p>
+<p><img src="/img/cn-labs/lab2/img05.png" alt="实验截图"></p>
+<p>这是我对Ping IP -t命令的使用，连续对ip地址执行ping，直到我用CTRL c中断</p>
+<h3 id="Ipconfig"><a href="#Ipconfig" class="headerlink" title="Ipconfig"></a>Ipconfig</h3><p><img src="/img/cn-labs/lab2/img06.png" alt="实验截图"></p>
+<p>在前面练习ping命令时我就使用了ipconfig命令帮助我找到网关ip以及我本机ip</p>
+<p>Ipv4 还有默认网关这些地址能帮我找到相应的IP地址</p>
+<p><img src="/img/cn-labs/lab2/img07.png" alt="实验截图"></p>
+<p>Ipconfig &#x2F;all 命令学习，可以帮助看到DNS和WINS服务器是否显示它已经配置且所要使用的附加信息</p>
+<p>比如说中间的securelink就是我在校外所用来远程连接校园内部网的vpn，当前我没有打开，也就是媒体断开连接</p>
+<p>而windows 的IP配置因为我电脑所用的就是win的默认网络配置，因此我这个仍是连接状态，且能看到主机名</p>
+<h3 id="Netstat"><a href="#Netstat" class="headerlink" title="Netstat"></a>Netstat</h3><p><img src="/img/cn-labs/lab2/img08.png" alt="实验截图"></p>
+<p>Netstat -s按照各个协议分别显示统计数据</p>
+<p><img src="/img/cn-labs/lab2/img09.png" alt="实验截图"></p>
+<p>Netstat -e帮助显示关于以太网的统计数据</p>
+<p>还有netstat -r netstat -a netstat -n等一系列命令学习</p>
+<h3 id="Tracert"><a href="#Tracert" class="headerlink" title="Tracert"></a>Tracert</h3><p><img src="/img/cn-labs/lab2/img10.png" alt="实验截图"></p>
+<p>使用tracert追踪<a target="_blank" rel="noopener" href="http://www.baidu.com到,追踪完毕,得到经过的路由/">www.baidu.com到，追踪完毕，得到经过的路由</a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[你的电脑]</span><br><span class="line">↓</span><br><span class="line">[本地路由器] ← 防火墙，不响应</span><br><span class="line">↓</span><br><span class="line">[校园网/企业网核心] 192.168.255.179</span><br><span class="line">↓</span><br><span class="line">[运营商BRAS] 172.30.255.21/34 ← 可能是教育网或企业专线</span><br><span class="line">↓</span><br><span class="line">[运营商骨干] 120.236.10.61 → 221.179.x.x（联通骨干）</span><br><span class="line">↓</span><br><span class="line">[目标区域] 120.197.x.x / 120.241.x.x</span><br><span class="line">↓</span><br><span class="line">[百度CDN] 183.240.99.224 ← 实际服务节点</span><br></pre></td></tr></table></figure>
+
+<p>Tracert工作原理：发送TTL从1递增的UDP&#x2F;ICMP包，每经过一个路由器TTL减1，当TTL&#x3D;0时路由器返回”超时”消息，从而暴露该跳IP。</p>
+<p>中间有一段：</p>
+<p><code>www.baidu.com → CNAME → www.a.shifen.com → 183.240.99.224</code></p>
+<p>这是百度的CDN域名，所有百度流量实际都走这个域名</p>
+<h3 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h3><p><img src="/img/cn-labs/lab2/img11.png" alt="实验截图"></p>
+<p>Route print展示路由表中当前项目</p>
+<p>Route add将路由项目添加给路由表</p>
+<p>route change 修改数据的传输路由 route delete从路由表中删除路由</p>
+<h3 id="ARP"><a href="#ARP" class="headerlink" title="ARP"></a>ARP</h3><p><img src="/img/cn-labs/lab2/img12.png" alt="实验截图"></p>
+<p>使用arp -a查看高速缓存中所有项目</p>
+<p>从图中可以发现电脑有 3个网络接口，每个接口维护独立的ARP缓存</p>
+<p><img src="/img/cn-labs/lab2/img13.png" alt="实验截图"></p>
+<h4 id="0x7：172-29-44-97（你的主网络接口）唯一有实际通信的物理网卡，连接真实局域网"><a href="#0x7：172-29-44-97（你的主网络接口）唯一有实际通信的物理网卡，连接真实局域网" class="headerlink" title="0x7：172.29.44.97（你的主网络接口）唯一有实际通信的物理网卡，连接真实局域网"></a>0x7：172.29.44.97（你的主网络接口）唯一有实际通信的物理网卡，连接真实局域网</h4><p>网关MAC 38-22-d6-2b-9a-ff → 厂商查询：</p>
+<p>38-22-D6 &#x3D; Cisco Systems, Inc（思科设备，企业级路由器&#x2F;交换机）</p>
+<p>另外两台设备的MAC前缀 00-E0-4C &#x3D; Realtek（常见PC网卡），B2-E2-90 &#x3D; Intel 或 Apple（高端设备）</p>
+<h4 id="0x2：192-168-163-1（VMware-NAT虚拟网卡）因为我电脑装了vm虚拟机因此有虚拟机的网卡"><a href="#0x2：192-168-163-1（VMware-NAT虚拟网卡）因为我电脑装了vm虚拟机因此有虚拟机的网卡" class="headerlink" title="0x2：192.168.163.1（VMware NAT虚拟网卡）因为我电脑装了vm虚拟机因此有虚拟机的网卡"></a>0x2：192.168.163.1（VMware NAT虚拟网卡）因为我电脑装了vm虚拟机因此有虚拟机的网卡</h4><p><img src="/img/cn-labs/lab2/img14.png" alt="实验截图"></p>
+<p>使用arp -a查看高速缓存中所有项目</p>
+<p>还有其他arp命令在比如-a IP 、-s IP物理地址 、-d IP可以做到加上接口IP、人工输入一个静态项目、删除一个静态项目</p>
+<h3 id="Nslookup"><a href="#Nslookup" class="headerlink" title="Nslookup"></a>Nslookup</h3><p><img src="/img/cn-labs/lab2/img15.png" alt="实验截图"></p>
+<p>由于我DNS配置中有一个无效的IPV6地址排在首位，导致我后面nslookup命令会遇到查不到DNS服务器的问题</p>
+<p><img src="/img/cn-labs/lab2/img16.png" alt="实验截图"></p>
+<h3 id="Netsh"><a href="#Netsh" class="headerlink" title="Netsh"></a>Netsh</h3><p>命令格式：<code>netsh [-a AliasFile] [-c Context] [-r RemoteMachine] [Command | -f ScriptFile]</code></p>
+<p><img src="/img/cn-labs/lab2/img17.png" alt="实验截图"></p>
+<p>这个netsh命令就是显示网络配置概要</p>
+<h3 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h3><p>ftp命令可以实现文件共享和传输</p>
+<p><img src="/img/cn-labs/lab2/img18.png" alt="实验截图"></p>
+<p>通过ftp连接到ftp开源网站</p>
+<p>ftp命令：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">dir              # 列出远程目录文件</span><br><span class="line">ls               # 简化的列表</span><br><span class="line">cd directory     # 切换远程目录</span><br><span class="line">lcd directory    # 切换本地目录</span><br><span class="line">get file.txt     # 下载文件</span><br><span class="line">mget files*      # 下载多个文件</span><br><span class="line">put file.txt     # 上传文件</span><br><span class="line">mput files*      # 上传多个文件</span><br><span class="line">binary           # 二进制模式（下载非文本文件）</span><br><span class="line">ascii            # ASCII模式（下载文本文件）</span><br><span class="line">prompt           # 切换交互提示（关闭后mget不询问）</span><br><span class="line">bye 或 quit      # 退出FTP</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/cn-labs/lab2/img19.png" alt="实验截图"></p>
+<p>我通过匿名方式访问该开源ftp网站，使用dir命令，可以列出远程的目录文件</p>
+<p><img src="/img/cn-labs/lab2/img20.png" alt="实验截图"></p>
+<p>我尝试切换到远程服务器的pub目录上面，也就是公共目录，然后我想得到里面的README.txt，下载成功，不过没能成功打开</p>
+<p>最后bye命令退出ftp</p>
+<h3 id="Net"><a href="#Net" class="headerlink" title="Net"></a>Net</h3><p><img src="/img/cn-labs/lab2/img21.png" alt="实验截图"></p>
+<p>通过netshare查看共享资源，可以发现电脑中C D F盘默认共享</p>
+<p>Net有多种命令</p>
+<p>比如：</p>
+<p>创建共享文件夹（需要管理员权限）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net share 共享名=C:\共享文件夹 /remark:&quot;描述信息&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="讨论与总结"><a href="#讨论与总结" class="headerlink" title="讨论与总结"></a>讨论与总结</h2><h4 id="问题一：DNS解析超时（nslookup命令异常）"><a href="#问题一：DNS解析超时（nslookup命令异常）" class="headerlink" title="问题一：DNS解析超时（nslookup命令异常）"></a>问题一：DNS解析超时（nslookup命令异常）</h4><p><strong>现象</strong>：执行nslookup时出现DNS request timed out，默认服务器显示为UnKnown，地址为fe80::1。</p>
+<p><strong>原因分析</strong>：通过ipconfig &#x2F;all发现系统配置了3个DNS服务器，第一个是IPv6链路本地地址fe80::1%7，但该地址无效或接口索引错误，导致DNS查询超时。后续排查发现这是Windows自动配置的IPv6 DNS优先策略问题。</p>
+<p><strong>解决办法</strong>：使用netsh interface ip set dns命令将首选DNS服务器手动设置为阿里公共DNS（223.5.5.5），并添加备用DNS（223.6.6.6）。修改后nslookup能正常解析域名，验证了DNS配置对网络通信的关键作用。</p>
+<h4 id="问题二：FTP下载文件无法打开"><a href="#问题二：FTP下载文件无法打开" class="headerlink" title="问题二：FTP下载文件无法打开"></a>问题二：FTP下载文件无法打开</h4><p><strong>现象</strong>：通过FTP匿名登录下载README.txt后，本地无法正常打开文件。</p>
+<p><strong>原因分析</strong>：FTP传输模式选择不当。文本文件在binary（二进制）模式下传输可能导致换行符格式不兼容（Unix LF与Windows CRLF差异），或在ascii模式下传输二进制文件会导致数据损坏。此外，部分FTP服务器的README文件可能是符号链接或权限受限。</p>
+<p><strong>解决办法</strong>：重新连接FTP服务器，执行ascii命令切换到ASCII模式后再下载文本文件；对于不确定类型的文件，先使用dir或ls -l查看文件属性。这加深了对FTP双模式传输机制的理解。</p>
+<h4 id="问题三：Tracert结果中多处显示”-请求超时”"><a href="#问题三：Tracert结果中多处显示”-请求超时”" class="headerlink" title="问题三：Tracert结果中多处显示”* * * 请求超时”"></a>问题三：Tracert结果中多处显示”* * * 请求超时”</h4><p><strong>现象</strong>：追踪到百度CDN的路径中，第1跳、第5跳、第11-14跳均显示超时。</p>
+<p><strong>原因分析</strong>：这些路由器或防火墙配置了ICMP不可达策略，主动丢弃TTL超时的ICMP报文或限制ICMP响应速率，属于正常的网络安全防护措施，并非网络故障。</p>
+<p><strong>验证方法</strong>：结合ping命令测试最终目标可达（11ms延迟），确认路径完整；通过pathping命令进一步验证丢包率集中在特定跳还是持续丢包，排除了链路故障的可能性。</p>
+<h4 id="2-命令原理的深入理解"><a href="#2-命令原理的深入理解" class="headerlink" title="2. 命令原理的深入理解"></a>2. 命令原理的深入理解</h4><p>通过本次实验，对几个核心命令的工作原理有了更深刻的认识：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>核心机制</th>
+<th>关键洞察</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ping</td>
+<td>基于ICMP Echo Request&#x2F;Reply，利用TTL字段实现跨网络探测</td>
+<td>TTL值不仅能推算跳数，还能识别目标操作系统（Windows默认128，Linux默认64）</td>
+</tr>
+<tr>
+<td>Tracert</td>
+<td>递增TTL触发ICMP Time Exceeded，逐跳暴露路径</td>
+<td>UDP端口33434+或ICMP Echo，不同系统实现有差异；防火墙普遍限制ICMP导致”* * *”</td>
+</tr>
+<tr>
+<td>ARP</td>
+<td>广播查询→单播响应，缓存表减少广播风暴</td>
+<td>多网卡环境下各接口ARP缓存独立；VMware虚拟网卡产生大量动态条目</td>
+</tr>
+<tr>
+<td>Netstat</td>
+<td>读取操作系统网络栈的连接状态表</td>
+<td>-ano参数结合findstr可定位特定端口占用进程，是排查端口冲突的关键工具</td>
+</tr>
+</tbody></table>
+<h4 id="3-网络安全意识的提升"><a href="#3-网络安全意识的提升" class="headerlink" title="3. 网络安全意识的提升"></a>3. 网络安全意识的提升</h4><p><code>net share</code> 命令揭示了 Windows 默认开启的管理共享（C&#x2F;D&#x2F;F 盘）存在潜在安全风险。在企业网络环境中，若管理员账户使用弱密码，攻击者可通过 <code>\\IP\C$</code> 直接远程访问整个磁盘分区。这提示在实际工作中应：</p>
+<ul>
+<li>通过注册表 <code>AutoShareServer=0</code> 禁用默认共享</li>
+<li>使用 <code>net share 共享名 /delete</code> 清理不必要的共享</li>
+<li>配合防火墙限制 SMB（445 端口）的入站访问</li>
+</ul>
+<h2 id="意见与建议"><a href="#意见与建议" class="headerlink" title="意见与建议"></a>意见与建议</h2><p>在实验ppt中加一些相应例子，可以方便大家更好的使用这些网络命令</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://dioinnet.github.io">Dioinnet</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://dioinnet.github.io/2026/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2-%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/">https://dioinnet.github.io/2026/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2-%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://dioinnet.github.io" target="_blank">DIOINNET'S WORLD</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C/">计算机网络实验</a></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C3-Wireshark%E6%8A%93%E5%8C%85/" title="计算机网络实验3：Wireshark 抓包"><img class="cover" src="/img/liang2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">计算机网络实验3：Wireshark 抓包</div></div><div class="info-2"><div class="info-item-1">实验要求实验目的 学习安装、使用协议分析软件，掌握基本的数据报捕获、过滤和协议分析技巧，能对抓取的数据包进行分析。 实验内容与任务  任务 3.1（Wireshark 的使用）：安装配置网络嗅探器；设置抓包过滤器和显示过滤器，抓取一个 HTTP 会话过程所传输的包，观察包结构和格式，分析各字段语义，以图形化方式显示该会话过程；利用过滤器抓取&#x2F;显示一个完整的 POP3 会话，截图并说明会话中双方交换的各报文含义；总结网络嗅探器的功能。 任务 3.2（HTTP 协议的认知与分析）：掌握浏览网页时 HTTP 协议的工作过程；抓取一个 HTTP 会话所传输的报文，分析报文结构、格式及内容；观察完整 HTTP 会话各阶段的请求&#x2F;响应操作；重建 HTTP 会话并说明各报文含义；回答实验指导中的 10 个问题。 任务 3.3（TCP 协议的认知与分析）：掌握 TCP 协议的语法、语义和时序；抓取 TCP 会话报文并分析结构；捕获 TCP 三次握手建立连接的完整数据包，分析时序关系（注意源&#x2F;目的 IP 与端口的匹配）；分析 SYN、ACK、Sequence numb...</div></div></div></a><a class="pagination-related" href="/2026/03/10/AI%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" title="AI核心概念"><img class="cover" src="/img/585861332f263df1042bee458fbfcac4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">AI核心概念</div></div><div class="info-2"><div class="info-item-1">AI核心概念LLM大模型  定义基于Transformer架构、通过海量文本预训练得到的概率模型，核心能力是预测下一个Token。 关键特征涌现能力：当参数规模突破某个阈值（通常认为600亿以上），模型会突然展现出小模型不具备的复杂推理、指令遵循、少样本学习等能力Scaling Law：模型性能与参数量、数据量、计算量呈幂律关系，即规模越大性能可预测地提升预训练+微调范式：先在通用语料上学习语言规律，再在特定任务上对齐 主流架构演进   阶段 代表 特点    GPT系列 GPT-3&#x2F;4&#x2F;4o 纯解码器，自回归生成，适合对话和创作   LLaMA系列 LLaMA 2&#x2F;3 开源可商用，推动私有化部署   混合架构 Claude&#x2F;Gemini 长上下文优化、多模态融合     Token词元，大模型处理信息的最基本单元  本质大模型处理的不是字符或单词，而是经过子词分词(Subword Tokenization)后的离散单元。 技术细节BPE算法（Byte Pair Encoding）：从字符开始迭代合并高频组合，如”unhappiness” ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C3-Wireshark%E6%8A%93%E5%8C%85/" title="计算机网络实验3：Wireshark 抓包"><img class="cover" src="/img/liang2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-13</div><div class="info-item-2">计算机网络实验3：Wireshark 抓包</div></div><div class="info-2"><div class="info-item-1">实验要求实验目的 学习安装、使用协议分析软件，掌握基本的数据报捕获、过滤和协议分析技巧，能对抓取的数据包进行分析。 实验内容与任务  任务 3.1（Wireshark 的使用）：安装配置网络嗅探器；设置抓包过滤器和显示过滤器，抓取一个 HTTP 会话过程所传输的包，观察包结构和格式，分析各字段语义，以图形化方式显示该会话过程；利用过滤器抓取&#x2F;显示一个完整的 POP3 会话，截图并说明会话中双方交换的各报文含义；总结网络嗅探器的功能。 任务 3.2（HTTP 协议的认知与分析）：掌握浏览网页时 HTTP 协议的工作过程；抓取一个 HTTP 会话所传输的报文，分析报文结构、格式及内容；观察完整 HTTP 会话各阶段的请求&#x2F;响应操作；重建 HTTP 会话并说明各报文含义；回答实验指导中的 10 个问题。 任务 3.3（TCP 协议的认知与分析）：掌握 TCP 协议的语法、语义和时序；抓取 TCP 会话报文并分析结构；捕获 TCP 三次握手建立连接的完整数据包，分析时序关系（注意源&#x2F;目的 IP 与端口的匹配）；分析 SYN、ACK、Sequence numb...</div></div></div></a><a class="pagination-related" href="/2026/05/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C4-Socket%E7%BC%96%E7%A8%8B/" title="计算机网络实验4：Socket 编程"><img class="cover" src="/img/liang2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-17</div><div class="info-item-2">计算机网络实验4：Socket 编程</div></div><div class="info-2"><div class="info-item-1">实验要求实验目的 学习网络编程基本概念（InetAddress、URL、URLConnection 的应用），掌握 Socket 的 TCP 通信与 UDP 通信编程，熟悉 Socket、ServerSocket、DatagramPacket、DatagramSocket 类的使用。 实验内容与任务  4.1：使用 InetAddress 类获取本地主机名称和 IP 地址；获取指定网站的全部 IP 地址；使用 URL 类下载学校首页并统计网页文件大小，将页面全部对象（图片、文本等）保存到本地。 4.2（TCP 通信，基本内容 90%）：编写 TCP 程序实现客户端、服务器之间的通信——(1) 指令交互：客户端发送 Time 命令，服务器返回当前时间；发送 Exit 命令，服务器返回 “Bye” 后关闭连接退出；(2) 文件传输：客户端发送文件请求，服务器先传文件名，客户端接收后再传输文件内容，客户端改名保存到本地。要求：程序包含完整的服务器端和客户端；服务器持续监听请求；关闭服务器时严格按 TCP 四次挥手流程实现；双方均打印接收到的消息和发出的命令。 4.3（UDP 聊天，基本...</div></div></div></a><a class="pagination-related" href="/2026/06/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C5-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E4%B8%8E%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/" title="计算机网络实验5：交换机与虚拟局域网"><img class="cover" src="/img/liang2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-01</div><div class="info-item-2">计算机网络实验5：交换机与虚拟局域网</div></div><div class="info-2"><div class="info-item-1">实验要求实验目的  了解 Quidway S 系列交换机的基本功能； 了解交换机的基本配置和 VLAN 的划分方法。  实验内容  登录交换机； 连接双节点网络； 配置双节点网络 VLAN； 配置四节点网络 VLAN。  任务要求：学习 Quidway 交换机的使用方法；理解 VLAN 的原理；掌握 VLAN 的配置方法；理解 Trunk 接口与 Access 接口的区别；掌握用交换机搭建小型网络的技能；依照步骤完成实验内容 1—4，对实验结果截图。 实验环境：Quidway S3900 交换机两台，PC 机四台，Console 线缆一条，网线若干。 实验过程与结果1. 登录交换机 主机连接交换机 - 登录成功后的操作：超级终端登录界面，显示”Username: huawei”，输入”system view”进入系统视图  了解控制界面切换的指令 - 查看当前配置：超级终端显示交换机配置信息（sysname HUAWEI, pki realm等），显示”More”分页， 在用户视图下输入system-view进入系统视图（提示符变为[HUAWEI]），输入quit可返回上级视图。...</div></div></div></a><a class="pagination-related" href="/2026/06/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C6-%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E%E8%B7%AF%E7%94%B1/" title="计算机网络实验6：网络互连路由"><img class="cover" src="/img/liang2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-18</div><div class="info-item-2">计算机网络实验6：网络互连路由</div></div><div class="info-2"><div class="info-item-1">实验要求实验目的  掌握交换机和路由器的连接方法； 掌握路由器常用配置命令； 掌握静态路由配置方法。  实验内容  配置 VLAN；2. 连接路由器；3. 登录并命名路由器 A；4. 配置路由器 A WAN 口；5. 配置路由器 A LAN 口和路由表；6. 登录并命名路由器 B；7. 配置路由器 B WAN 口；8. 配置路由器 B LAN 口和路由表；9. 检测配置是否成功。  任务要求：学习 Quidway 路由器的使用方法；理解路由器存储转发的原理；掌握路由表配置的方法；掌握用交换机和路由器搭建小型网络的技能；依照步骤完成实验内容 1—9，对实验结果截图。 实验环境：Quidway AR2200（或 AR2200-S）系列路由器 2 台、S5700（或 S3700）系列交换机 1 台，PC 机 4 台，Console 线缆 1 条，双绞线若干。 实验过程与结果步骤一：配置 VLAN创建VLAN 2和VLAN 3，将对应端口加入VLAN： VLAN 2：端口GE1&#x2F;0&#x2F;1（PC1）、GE1&#x2F;0&#x2F;4（PC2）、GE1&#x2F;0&#x...</div></div></div></a><a class="pagination-related" href="/2026/06/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C7-IPv6%E9%9A%A7%E9%81%93%E5%AE%9E%E9%AA%8C/" title="计算机网络实验7：IPv6 隧道实验"><img class="cover" src="/img/liang2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-30</div><div class="info-item-2">计算机网络实验7：IPv6 隧道实验</div></div><div class="info-2"><div class="info-item-1">实验要求实验目的  学习安装与使用华为 eNSP 网络仿真软件； 理解 IPv6 over IPv4 的原理； 掌握 IPv6 over IPv4 手工隧道的配置方法； 掌握 OSPF 路由的配置方法； 掌握 IPv6 静态路由的配置方法。  实验内容  建立三路由拓扑；2. OSPF 路由配置；3. 创建虚接口；4. 创建 IPv6 虚接口；5. 创建 IPv6 over IPv4 隧道；6. 配置 IPv6 静态路由。  任务要求：学习 eNSP 软件的使用方法；理解 IPv6 over IPv4 的原理；掌握 IPv6 over IPv4 手工隧道配置的方法；掌握 OSPF 路由配置的方法；掌握 IPv6 静态路由的配置方法；依照步骤完成实验内容 1—6，对实验结果截图。 实验环境：Windows 系统；eNSP 网络仿真软件。 实验过程与结果1. 建立三路由器拓扑 为每个路由器配置IPv4地址  图1：R1配置ipv4地址  图2：R2配置ipv4地址  图三：R3配置ipv4地址   图四，图五：R1可以 ping通 R2的12.1.1.2，因为同属同一子网。R1无法 ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Dioinnet</div><div class="author-info-description">仰天大笑出门去，我辈岂是蓬蒿人</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Dioinnet" target="_blank" title="GitHub"><i class="fab fa-github" style="color: #4a4a4a;"></i></a><a class="social-icon" href="https://space.bilibili.com/476603285" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #FB7299;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%A6%81%E6%B1%82"><span class="toc-number">1.</span> <span class="toc-text">实验要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B%E4%B8%8E%E7%BB%93%E6%9E%9C"><span class="toc-number">2.</span> <span class="toc-text">实验过程与结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ping"><span class="toc-number">2.1.</span> <span class="toc-text">Ping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ipconfig"><span class="toc-number">2.2.</span> <span class="toc-text">Ipconfig</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Netstat"><span class="toc-number">2.3.</span> <span class="toc-text">Netstat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tracert"><span class="toc-number">2.4.</span> <span class="toc-text">Tracert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Route"><span class="toc-number">2.5.</span> <span class="toc-text">Route</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP"><span class="toc-number">2.6.</span> <span class="toc-text">ARP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0x7%EF%BC%9A172-29-44-97%EF%BC%88%E4%BD%A0%E7%9A%84%E4%B8%BB%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%EF%BC%89%E5%94%AF%E4%B8%80%E6%9C%89%E5%AE%9E%E9%99%85%E9%80%9A%E4%BF%A1%E7%9A%84%E7%89%A9%E7%90%86%E7%BD%91%E5%8D%A1%EF%BC%8C%E8%BF%9E%E6%8E%A5%E7%9C%9F%E5%AE%9E%E5%B1%80%E5%9F%9F%E7%BD%91"><span class="toc-number">2.6.1.</span> <span class="toc-text">0x7：172.29.44.97（你的主网络接口）唯一有实际通信的物理网卡，连接真实局域网</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#0x2%EF%BC%9A192-168-163-1%EF%BC%88VMware-NAT%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1%EF%BC%89%E5%9B%A0%E4%B8%BA%E6%88%91%E7%94%B5%E8%84%91%E8%A3%85%E4%BA%86vm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%9B%A0%E6%AD%A4%E6%9C%89%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%BD%91%E5%8D%A1"><span class="toc-number">2.6.2.</span> <span class="toc-text">0x2：192.168.163.1（VMware NAT虚拟网卡）因为我电脑装了vm虚拟机因此有虚拟机的网卡</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nslookup"><span class="toc-number">2.7.</span> <span class="toc-text">Nslookup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Netsh"><span class="toc-number">2.8.</span> <span class="toc-text">Netsh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTP"><span class="toc-number">2.9.</span> <span class="toc-text">FTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Net"><span class="toc-number">2.10.</span> <span class="toc-text">Net</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">讨论与总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%80%EF%BC%9ADNS%E8%A7%A3%E6%9E%90%E8%B6%85%E6%97%B6%EF%BC%88nslookup%E5%91%BD%E4%BB%A4%E5%BC%82%E5%B8%B8%EF%BC%89"><span class="toc-number">3.0.1.</span> <span class="toc-text">问题一：DNS解析超时（nslookup命令异常）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%BA%8C%EF%BC%9AFTP%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80"><span class="toc-number">3.0.2.</span> <span class="toc-text">问题二：FTP下载文件无法打开</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%89%EF%BC%9ATracert%E7%BB%93%E6%9E%9C%E4%B8%AD%E5%A4%9A%E5%A4%84%E6%98%BE%E7%A4%BA%E2%80%9D-%E8%AF%B7%E6%B1%82%E8%B6%85%E6%97%B6%E2%80%9D"><span class="toc-number">3.0.3.</span> <span class="toc-text">问题三：Tracert结果中多处显示”* * * 请求超时”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%91%BD%E4%BB%A4%E5%8E%9F%E7%90%86%E7%9A%84%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3"><span class="toc-number">3.0.4.</span> <span class="toc-text">2. 命令原理的深入理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%84%8F%E8%AF%86%E7%9A%84%E6%8F%90%E5%8D%87"><span class="toc-number">3.0.5.</span> <span class="toc-text">3. 网络安全意识的提升</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%8F%E8%A7%81%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="toc-number">4.</span> <span class="toc-text">意见与建议</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/11/07/2026%E5%B9%B4%E5%BC%BA%E7%BD%91%E6%9D%AFwriteup/" title="2026年强网杯writeup"><img src="/img/20260607161101_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2026年强网杯writeup"/></a><div class="content"><a class="title" href="/2026/11/07/2026%E5%B9%B4%E5%BC%BA%E7%BD%91%E6%9D%AFwriteup/" title="2026年强网杯writeup">2026年强网杯writeup</a><time datetime="2026-11-07T07:04:24.000Z" title="发表于 2026-11-07 15:04:24">2026-11-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/13/Hello-Agent/" title="Hello Agent"><img src="/img/liang2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello Agent"/></a><div class="content"><a class="title" href="/2026/08/13/Hello-Agent/" title="Hello Agent">Hello Agent</a><time datetime="2026-08-13T07:59:40.000Z" title="发表于 2026-08-13 15:59:40">2026-08-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/06/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C7-IPv6%E9%9A%A7%E9%81%93%E5%AE%9E%E9%AA%8C/" title="计算机网络实验7：IPv6 隧道实验"><img src="/img/liang2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络实验7：IPv6 隧道实验"/></a><div class="content"><a class="title" href="/2026/06/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C7-IPv6%E9%9A%A7%E9%81%93%E5%AE%9E%E9%AA%8C/" title="计算机网络实验7：IPv6 隧道实验">计算机网络实验7：IPv6 隧道实验</a><time datetime="2026-06-30T04:00:00.000Z" title="发表于 2026-06-30 12:00:00">2026-06-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/06/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C6-%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E%E8%B7%AF%E7%94%B1/" title="计算机网络实验6：网络互连路由"><img src="/img/liang2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络实验6：网络互连路由"/></a><div class="content"><a class="title" href="/2026/06/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C6-%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E%E8%B7%AF%E7%94%B1/" title="计算机网络实验6：网络互连路由">计算机网络实验6：网络互连路由</a><time datetime="2026-06-18T04:00:00.000Z" title="发表于 2026-06-18 12:00:00">2026-06-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/06/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C5-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E4%B8%8E%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/" title="计算机网络实验5：交换机与虚拟局域网"><img src="/img/liang2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络实验5：交换机与虚拟局域网"/></a><div class="content"><a class="title" href="/2026/06/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C5-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E4%B8%8E%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/" title="计算机网络实验5：交换机与虚拟局域网">计算机网络实验5：交换机与虚拟局域网</a><time datetime="2026-06-01T04:00:00.000Z" title="发表于 2026-06-01 12:00:00">2026-06-01</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Dioinnet</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="/js/lang-toggle.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
